@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"os"
@@ -6,31 +6,31 @@ import (
 	"testing"
 )
 
-func TestInitialize(t *testing.T) {
+func TestLoadEnv(t *testing.T) {
 	dir, err := os.Getwd()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	dir = filepath.Join(dir, "test_tmp")
+	dir = filepath.Join(dir, "../", "test_tmp")
 	os.Setenv("DISCORD_TASK_MANAGEMENT_DIR", dir)
 
-	err = initialize()
+	err = LoadEnv()
 	if err != nil {
 		t.Fatal(err)
 	}
 }
 
-func TestInitializeInvalid(t *testing.T) {
+func TestLoadEnvInvalid(t *testing.T) {
 	dir, err := os.Getwd()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	dir = filepath.Join(dir, "test_tmp", "invalid_data")
+	dir = filepath.Join(dir, "../", "test_tmp", "invalid_data")
 	os.Setenv("DISCORD_TASK_MANAGEMENT_DIR", dir)
 
-	err = initialize()
+	err = LoadEnv()
 	if err == nil {
 		t.Fatal(err)
 	}
