@@ -20,6 +20,7 @@ func initialize() error {
 }
 
 func main() {
+	log.SetFlags(log.Llongfile)
 	err := initialize()
 	if err != nil {
 		log.Fatalln(err)
@@ -39,6 +40,7 @@ func main() {
 	}
 
 	models.GetDatabase()
+	models.Migration()
 
 	// システムが終了させられるまで起動し続ける
 	sc := make(chan os.Signal, 1)

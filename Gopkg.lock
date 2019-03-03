@@ -95,6 +95,22 @@
   version = "v1.10.0"
 
 [[projects]]
+  digest = "1:274f67cb6fed9588ea2521ecdac05a6d62a8c51c074c1fccc6a49a40ba80e925"
+  name = "github.com/satori/go.uuid"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "f58768cc1a7a7e77a3bd49e98cdd21419399b6a3"
+  version = "v1.2.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:d0ea8ac790b028770633c72d1567f6f2196001742065e9f9458fdcee25bc34d3"
+  name = "github.com/txgruppi/parseargs-go"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "4cb98496e521562d12f9da481a744ad97e62d90a"
+
+[[projects]]
   branch = "master"
   digest = "1:44d690fe8eb4d98edb6e942bfdb15e98a1e4eee717c4b2053d1af74347db18c9"
   name = "golang.org/x/crypto"
@@ -127,6 +143,8 @@
     "github.com/jinzhu/gorm/dialects/postgres",
     "github.com/jinzhu/gorm/dialects/sqlite",
     "github.com/joho/godotenv",
+    "github.com/satori/go.uuid",
+    "github.com/txgruppi/parseargs-go",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

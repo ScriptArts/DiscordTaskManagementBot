@@ -6,6 +6,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"log"
 	"os"
 )
 
@@ -13,7 +14,7 @@ var database *gorm.DB
 
 func GetDatabase() (*gorm.DB, error) {
 	if database != nil {
-		if err := database.DB().Ping(); err == nil {
+		if err := database.Debug().DB().Ping(); err == nil {
 			return database, nil
 		}
 	}
@@ -28,4 +29,14 @@ func GetDatabase() (*gorm.DB, error) {
 	database = db
 
 	return database, nil
+}
+
+func Migration() {
+	db, err := GetDatabase()
+	if err != nil {
+		log.Fatalln(err.Error())
+		return
+	}
+
+	db.AutoMigrate(&Creator{}, &Client{}, &Request{})
 }
