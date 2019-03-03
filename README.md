@@ -18,6 +18,8 @@ DISCORD_TASK_MANAGEMENT_DATABASE_CONNECTION_STR=app.db
 # クリエイター追加コマンドなどの管理者コマンド実行権限（DiscordのユーザID）
 # ex) 11111111,22222222
 DISCORD_BOT_OP_LIST=
+# デバックモードの時は true にする。
+DISCORD_BOT_DEBUG=true
 ```
 
 `go run server.go` or (`go build server.go` and run binary file)

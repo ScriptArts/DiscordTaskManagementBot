@@ -3,6 +3,7 @@ package models
 import (
 	"errors"
 	"github.com/satori/go.uuid"
+	"os"
 	"time"
 )
 
@@ -55,7 +56,7 @@ func (r *RequestRepository) GetAll(uid, guildID string) ([]*RequestData, error) 
 	}
 
 	var data []*RequestData
-	err = db.Debug().Table("requests as r").
+	err = db.Table("requests as r").
 		Select("r.id, r.created_at, r.updated_at, c.discord_id as creator_discord_id, c2.discord_id as client_discord_id, r.content, r.status, r.uuid").
 		Joins("LEFT JOIN creators c ON c.id = r.creator_id").
 		Joins("LEFT JOIN clients c2 ON c2.id = r.client_id").
@@ -71,7 +72,7 @@ func (r *RequestRepository) Get(uid, guildID string) (*RequestData, error) {
 	}
 
 	var data RequestData
-	err = db.Debug().Table("requests as r").
+	err = db.Table("requests as r").
 		Select("r.id, r.created_at, r.updated_at, c.discord_id as creator_discord_id, c2.discord_id as client_discord_id, r.content, r.status, r.uuid").
 		Joins("LEFT JOIN creators c ON c.id = r.creator_id").
 		Joins("LEFT JOIN clients c2 ON c2.id = r.client_id").
@@ -105,12 +106,14 @@ func (r *RequestRepository) Create(creatorID uint, clientDiscordID, guildID, con
 	}
 
 	// 連続リクエスト防止処理
-	//if !client.LastRequestAt.IsZero() {
-	//	if client.LastRequestAt.Add(time.Minute).After(time.Now()) {
-	//		tx.Rollback()
-	//		return errors.New("エラー")
-	//	}
-	//}
+	if os.Getenv("DISCORD_BOT_DEBUG") != "true" {
+		if !client.LastRequestAt.IsZero() {
+			if client.LastRequestAt.Add(time.Minute).After(time.Now()) {
+				tx.Rollback()
+				return errors.New("エラー")
+			}
+		}
+	}
 
 	req := &Request{
 		CreatorID: creatorID,

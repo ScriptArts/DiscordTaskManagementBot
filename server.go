@@ -20,10 +20,13 @@ func initialize() error {
 }
 
 func main() {
-	log.SetFlags(log.Llongfile)
 	err := initialize()
 	if err != nil {
 		log.Fatalln(err)
+	}
+
+	if os.Getenv("DISCORD_BOT_DEBUG") == "true" {
+		log.SetFlags(log.Llongfile)
 	}
 
 	// discord setting

@@ -39,7 +39,7 @@ func (r *CreatorRepository) Get(uid, guildID string) (*Creator, error) {
 	}
 
 	var creator Creator
-	if err := db.Debug().Find(&creator, "uuid = ? AND guild_id = ?", uid, guildID).Error; err != nil {
+	if err := db.Find(&creator, "uuid = ? AND guild_id = ?", uid, guildID).Error; err != nil {
 		return nil, err
 	}
 
@@ -53,7 +53,7 @@ func (r *CreatorRepository) GetByDiscordID(discordID, guildID string) (*Creator,
 	}
 
 	var creator Creator
-	if err := db.Debug().Find(&creator, "discord_id = ? AND guild_id = ?", discordID, guildID).Error; err != nil {
+	if err := db.Find(&creator, "discord_id = ? AND guild_id = ?", discordID, guildID).Error; err != nil {
 		return nil, err
 	}
 
