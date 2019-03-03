@@ -25,6 +25,10 @@ func main() {
 		log.Fatalln(err)
 	}
 
+	if os.Getenv("DISCORD_BOT_DEBUG") == "true" {
+		log.SetFlags(log.Llongfile)
+	}
+
 	// discord setting
 	discord, err := bot.GetDiscordClient()
 	if err != nil {
@@ -39,6 +43,7 @@ func main() {
 	}
 
 	models.GetDatabase()
+	models.Migration()
 
 	// システムが終了させられるまで起動し続ける
 	sc := make(chan os.Signal, 1)
